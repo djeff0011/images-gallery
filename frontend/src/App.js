@@ -1,17 +1,11 @@
-/*
-function App() {
-  return (
-    <div className="App">
-      <h1>Images Gallery</h1>
-    </div>
-  );
-}*/
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header'
 
 /* Arrow function instead of using the keyword function */
 const App = () => {
   return (
     <div>
-      <h1>Images Gallery</h1>
+      <Header title="Images Gallery"/>
     </div>
   );
 }
