@@ -27,13 +27,16 @@ const App = () => {
       .catch((err) => {
         console.log(err);
       })
+      setWord(''); //set the input box on the search to empty or default. clears it
+
   }
 
   return (
     <div>
       <Header title="Images Gallery"/>
-      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit}/> 
+      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />  
     </div>
+    
   );
 }
 
