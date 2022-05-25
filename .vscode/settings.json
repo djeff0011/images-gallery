@@ -1,4 +1,6 @@
 {
+    "_comment": "editor.tabSize: 2 (This would make the tab size 2) add this as another key",
+    "editor.tabSize": 2,
     "eslint.validate":[
         "html",
         "javascript",
