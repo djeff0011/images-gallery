@@ -23,7 +23,6 @@
   },
   "eslintConfig": {
     "rules": {
-      "_comment": "Having off in the line below fix the delete cr error ",
       "prettier/prettier": ["off", { "singleQuote": true }]
   },
     "extends": [

@@ -12,6 +12,10 @@ const App = () => {
       ''
     ); /* word hold data and setWord function updates word. useState returns two elements in an array so we destruct it here*/
 
+  const [images, setImages] = useState([]);
+
+  console.log(images);
+
   /* This handles the submission of the search button in the search component*/
   /* below e.target[0].value retrieves the value for the text in the search bar */
   const handleSearchSubmit = (e) => {
@@ -25,7 +29,7 @@ const App = () => {
     )
       .then((result) => result.json())
       .then((data) => {
-        console.log(data);
+        setImages([data, ...images]) /* the ... is a javascript spread opperator to pull data from another array. data is the current images searched for*/
       })
       .catch((err) => {
         console.log(err);
