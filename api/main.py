@@ -7,12 +7,17 @@ load_dotenv(dotenv_path="./.env.local") # Here we set the path to the file it se
 
 UNSPLASH_URL='https://api.unsplash.com/photos/random'
 UNSPALSH_KEY=os.environ.get("UNSPLASH_KEY", "")
+DEBUG=bool(os.environ.get("DEBUG", True))
+# To disable debug mode put this DEBUG="" in the .env.local file within the api folder
 
 # make sure we have api key or raise an error that will stop the program from running till we put the key into the .env.local file 
 if not UNSPALSH_KEY:
     raise EnvironmentError("Please create .env.local file and insert the UNSPLASH_KEY there")
 
 app = Flask(__name__)
+
+#Not good to set debug mode when in production. This in not production but not a good practice to have it here.
+app.config["DEBUG"] = DEBUG  # This enables debug mode in out flask app. *** THIS WILL AUTO RESTART OUR APP after every change made in it
 
 @app.route("/new-image")
 def new_image():
