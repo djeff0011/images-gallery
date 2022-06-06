@@ -2,6 +2,7 @@ import os   # Need to import this so we can access the local environment variabl
 from flask import Flask, request # This request is for the flask app used to get access to the client request that is sent to flask app from other clients
 import requests     # This request is from python itself. The one I used to create client requests and send them to another server
 from dotenv import load_dotenv # Import this so we can get the local env file we created (.env.local in the api directory)
+from flask_cors import CORS  # Cross-Origin Resource Sharing. Needed to access our api being ran on the same ip 127.0.0.1 as our frontend app
 
 load_dotenv(dotenv_path="./.env.local") # Here we set the path to the file it self
 
@@ -15,6 +16,7 @@ if not UNSPALSH_KEY:
     raise EnvironmentError("Please create .env.local file and insert the UNSPLASH_KEY there")
 
 app = Flask(__name__)
+CORS(app)
 
 #Not good to set debug mode when in production. This in not production but not a good practice to have it here.
 app.config["DEBUG"] = DEBUG  # This enables debug mode in out flask app. *** THIS WILL AUTO RESTART OUR APP after every change made in it

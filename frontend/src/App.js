@@ -8,6 +8,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050'
+
 /* Arrow function instead of using the keyword function */
 const App = () => {
   const [word, setWord] =
@@ -28,7 +30,7 @@ const App = () => {
        of using the + to concat to the string like in python. Mouse over the fetch keyword to see what
        it returns. It returns a Promise, which is a response */
     fetch(
-      `https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_KEY}`
+      `${API_URL}/new-image?query=${word}`
     )
       .then((result) => result.json())
       .then((data) => {
