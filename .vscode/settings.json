@@ -7,7 +7,16 @@
         "javascriptreact",
     ],
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint":true
+        "source.fixAll.eslint": true
     },
-    "python.pythonPath": "api/.venv/scripts/python"
+    "python.pythonPath": "api/.venv/scripts/python",
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pycodestyleArgs": [
+        "--max-line-length=88"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider":"black",
+    "[python]": {
+        "editor.formatOnSave": true
+    }
 }
