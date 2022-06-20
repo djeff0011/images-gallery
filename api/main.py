@@ -14,6 +14,8 @@ load_dotenv(dotenv_path="./.env.local")  # Here we set the path to the file it s
 
 UNSPLASH_URL = 'https://api.unsplash.com/photos/random'
 UNSPALSH_KEY = os.environ.get("UNSPLASH_KEY", "")
+# Debug mode here when set to true, flask application monitors changes in the file and
+# reload flask app each time when changes are detected.
 DEBUG = bool(os.environ.get("DEBUG", True))
 # To disable debug mode put this DEBUG="" in the .env.local file within the api folder
 
