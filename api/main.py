@@ -7,7 +7,7 @@ import requests
 from dotenv import load_dotenv
 # Cross-Origin Resource Sharing. Needed to access our api
 # being ran on the same ip 127.0.0.1 as our frontend app
-from flask_cors import CORS  
+from flask_cors import CORS
 
 
 load_dotenv(dotenv_path="./.env.local")  # Here we set the path to the file it self
