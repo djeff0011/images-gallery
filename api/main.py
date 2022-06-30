@@ -1,13 +1,17 @@
 import os   # Need to import this so we can access the local environment variables.
 # This request used to get access to the client request
-from flask import Flask, request
+from flask import Flask, request, jsonify
 # This one I used to create client requests and send them to another server
 import requests
-# To access the local env file we created (.env.local in the api directory)  
+# To access the local env file we created (.env.local in the api directory)
 from dotenv import load_dotenv
 # Cross-Origin Resource Sharing. Needed to access our api
 # being ran on the same ip 127.0.0.1 as our frontend app
 from flask_cors import CORS
+from mongo_client import mongo_client   # Import from the mongo_client module we created
+
+gallery = mongo_client.gallery          # Create the database gallery in mongo
+images_collection = gallery.images      # Create the images collection(table) in gallery
 
 
 load_dotenv(dotenv_path="./.env.local")  # Here we set the path to the file it self
@@ -46,6 +50,23 @@ def new_image():
     return data
 
 # This is how you run the flask application within the module. (A module is any .py)
+
+
+@app.route("/images", methods=["GET", "POST"])  # Here we add method types in a list
+def images():
+    if request.method == "GET":
+        # read images from the db
+        images = images_collection.find({})  # We use {} to return all
+        return jsonify([img for img in images])  # Use jsonify to make results a json
+    if request.method == "POST":
+        # save image in the db
+        image = request.get_json()      # can use json.loads(request.data), others too
+        # Get the image id that we created and set it to _id so we do not get the
+        # Object of type ObjectId is not JSON serializable. This will fix it
+        image["_id"] = image.get("id") # do this before the next line to skip the error
+        result = images_collection.insert_one(image)
+        inserted_id = result.inserted_id
+        return {"inserted_id": inserted_id}  # return dictionary with single key
 
 
 if __name__ == "__main__":
