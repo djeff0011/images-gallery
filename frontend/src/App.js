@@ -1,4 +1,4 @@
-import { useState } from 'react'; /* useState is a react hook(basically a function) we will use to deal with the state of the user input*/
+import { useState, useEffect } from 'react'; /* useState is a react hook(basically a function) we will use to deal with the state of the user input*/
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
@@ -19,8 +19,20 @@ const App = () => {
     ); /* word hold data and setWord function updates word. useState returns two elements in an array so we destruct it here*/
 
   const [images, setImages] = useState([]);
+  
+  // Get saved images from the db and load it into the frontend
+  const getSavedImages = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/images`);
+      setImages(res.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // console.log(images);
+  // Here i did not use the () when calling the func. it crashes the server
+  // The second argument, the empty list of dependencies makes it so that it loads only once
+  useEffect(() => getSavedImages, []);  
 
   /* This handles the submission of the search button in the search component*/
   /* below e.target[0].value retrieves the value for the text in the search bar */

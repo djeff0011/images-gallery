@@ -63,7 +63,7 @@ def images():
         image = request.get_json()      # can use json.loads(request.data), others too
         # Get the image id that we created and set it to _id so we do not get the
         # Object of type ObjectId is not JSON serializable. This will fix it
-        image["_id"] = image.get("id") # do this before the next line to skip the error
+        image["_id"] = image.get("id")  # do this before the next line to skip the error
         result = images_collection.insert_one(image)
         inserted_id = result.inserted_id
         return {"inserted_id": inserted_id}  # return dictionary with single key
