@@ -65,8 +65,16 @@ const App = () => {
     }
     setWord(''); //set the input box on the search to empty or default. clears it
   };
-  const handleDeleteImage = (id) => {
+  const handleDeleteImage = async (id) => {
+    
+    try {
+      const res = await axios.delete(`${API_URL}/images/${id}`)
+    if (res.data?.deleted_id){
     setImages(images.filter((image) => image.id !== id)); //filter here removes the id if it matches the one we want to delete. Filter returns new array
+    }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleSaveImage = async (id) => {
