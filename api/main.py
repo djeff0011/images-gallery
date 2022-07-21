@@ -69,5 +69,19 @@ def images():
         return {"inserted_id": inserted_id}  # return dictionary with single key
 
 
+@app.route("/images/<image_id>", methods=["DELETE"])
+def image(image_id):
+    if request.method == "DELETE":
+        # DELETE IMAGE FROM THE DB
+        result = images_collection.delete_one({"_id": image_id})
+        # Error handling when not found. Numbers after return statement are error codes
+        if not result:
+            return {"error": "Image wasn't delted. Please try again"}, 500
+        
+        if result and not result.deleted_count:
+            return {"error": "Image not found"}, 404
+        return {"deleted_id": image_id}
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050)  # using the .run runs the flask server
