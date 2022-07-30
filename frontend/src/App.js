@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Search from './components/Search';
 import ImageCard from './components/ImageCard';
 import Welcome from './components/Welcome';
+import Spinner from './components/Spinner';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
@@ -19,12 +20,14 @@ const App = () => {
     ); /* word hold data and setWord function updates word. useState returns two elements in an array so we destruct it here*/
 
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   // Get saved images from the db and load it into the frontend
   const getSavedImages = async () => {
     try {
       const res = await axios.get(`${API_URL}/images`);
       setImages(res.data || []);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -97,7 +100,7 @@ const App = () => {
   return (
     <div>
       <Header title="Images Gallery" />
-      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
+      {loading ? (<Spinner />) : (<><Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
       <Container className="mt-4">
         {images.length ? (
           <Row xs={1} md={2} lg={3}>
@@ -110,7 +113,8 @@ const App = () => {
         ) : (
           <Welcome />
         )}
-      </Container>
+      </Container></>)}
+      
     </div>
   );
 };
